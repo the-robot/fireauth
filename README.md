@@ -6,6 +6,11 @@
 </p>
 
 <p align="center"><i>Rust wrapper for Firebase Authentication REST API</i></p>
+<p align="center">
+    <a href="http://www.wtfpl.net/">
+        <img src="http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-4.png" width="80" height="15" alt="WTFPL" />
+    </a>
+</p>
 
 ## How to use
 
