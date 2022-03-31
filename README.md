@@ -87,3 +87,83 @@ struct ProviderUserInfo {
     raw_id: String,
 }
 ```
+
+### User Email and Password
+
+#### Email
+```rust
+match fireauth.change_email(id_token, email, false).await {
+    Ok(update_user) => ...
+    Err(error) => ...
+}
+
+// response structure
+struct UpdateUser {
+    kind: String,
+    local_id: String,
+    email: String,
+    provider_user_info: Vec<ProviderUserInfo>,
+    password_hash: String,
+    email_verified: bool,
+    id_token: Option<String>,
+    refresh_token: Option<String>,
+    expires_in: Option<String>,
+}
+
+struct ProviderUserInfo {
+    provider_id: String,
+    federated_id: String,
+    email: String,
+    raw_id: String,
+}
+```
+
+#### Password
+```rust
+match fireauth.change_password(id_token, password, true).await {
+    Ok(update_user) => ...
+    Err(error) => ...
+}
+```
+
+### Send OOB Code
+#### Send verification email
+```rust
+match fireauth.verify_email(id_token).await {
+    Ok(send_oob_code) => ...
+    Err(error) => ...
+}
+
+// response structure
+struct SendOobCode {
+    kind: String,
+    email: String,
+}
+```
+
+#### Send reset password
+```rust
+match fireauth.reset_password(email).await {
+    Ok(send_oob_code) => ...
+    Err(error) => ...
+}
+```
+
+### Refresh Token
+```rust
+match fireauth.refresh_token(refresh_token).await {
+    Ok(refresh_token_response) => ...
+    Err(error) => ...
+}
+
+// response structure
+struct RefreshToken {
+    access_token: String,
+    expires_in: String,
+    token_type: String,
+    refresh_token: String,
+    id_token: String,
+    user_id: String,
+    project_id: String,
+}
+```
