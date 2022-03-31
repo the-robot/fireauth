@@ -179,3 +179,19 @@ match fireauth.change_password(id_token, password, true).await {
     Err(error) => ...
 }
 ```
+
+<br/>
+
+## What are not supported yet
+
+### Sign In
+- Sign in anonymously
+- Sign in with OAuth credential
+
+### Password
+- Verify password reset code
+- Confirm password reset
+
+### User
+- Update profile
+- Delete account
