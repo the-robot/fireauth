@@ -37,26 +37,12 @@ impl crate::FireAuth {
         self.update_user(id_token, None, Some(password), return_secure_token).await
     }
 
-    pub async fn verify_email(&self, id_token: String) -> Result<EmailVerification, Error> {
-        let url = format!(
-            "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={}",
-            self.api_key,
-        );
+    pub async fn reset_password(&self, email: String) -> Result<SendOobCode, Error> {
+        self.send_oob_code("PASSWORD_RESET".to_owned(), None, Some(email)).await
+    }
 
-        let client = reqwest::Client::new();
-        let resp = client.post(url)
-            .header("Content-Type", "application/json")
-            .json(&SendEmailVerificationPayload { request_type: "VERIFY_EMAIL".to_owned(), id_token })
-            .send()
-            .await?;
-
-        if resp.status() != 200 {
-            let error = resp.json::<FailResponse>().await?.error;
-            return Err(Error::User(error.message));
-        }
-
-        let body = resp.json::<EmailVerification>().await?;
-        Ok(body)
+    pub async fn verify_email(&self, id_token: String) -> Result<SendOobCode, Error> {
+        self.send_oob_code("VERIFY_EMAIL".to_owned(), Some(id_token), None).await
     }
 
     async fn update_user(
@@ -85,6 +71,28 @@ impl crate::FireAuth {
         }
 
         let body = resp.json::<UpdateUser>().await?;
+        Ok(body)
+    }
+
+    async fn send_oob_code(&self, request_type: String, id_token: Option<String>, email: Option<String>) -> Result<SendOobCode, Error> {
+        let url = format!(
+            "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={}",
+            self.api_key,
+        );
+
+        let client = reqwest::Client::new();
+        let resp = client.post(url)
+            .header("Content-Type", "application/json")
+            .json(&SendOobCodePayload { request_type, id_token, email })
+            .send()
+            .await?;
+
+        if resp.status() != 200 {
+            let error = resp.json::<FailResponse>().await?.error;
+            return Err(Error::User(error.message));
+        }
+
+        let body = resp.json::<SendOobCode>().await?;
         Ok(body)
     }
 }
@@ -160,14 +168,15 @@ pub struct ProviderUserInfo {
 // Email Verification
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct SendEmailVerificationPayload {
+struct SendOobCodePayload {
     request_type: String,
-    id_token: String,
+    id_token: Option<String>,
+    email: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct EmailVerification {
+pub struct SendOobCode {
     pub kind: String,
     pub email: String,
 }
