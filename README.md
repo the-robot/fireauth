@@ -97,12 +97,12 @@ match fireauth.reset_password(email).await {
 ### 4. Refresh ID Token
 ```rust
 match fireauth.refresh_id_token(refresh_token).await {
-    Ok(refresh_token_response) => ...
+    Ok(refresh_id_token_response) => ...
     Err(error) => ...
 }
 
 // response structure
-struct RefreshToken {
+struct RefreshIdToken {
     access_token: String,
     expires_in: String,
     token_type: String,
