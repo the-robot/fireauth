@@ -17,6 +17,18 @@ const API_KEY: String = "s6FqaFcRFd...njhB8cCjN7".to_owned();
 let fireauth = fireauth::FireAuth::new(API_KEY);
 ```
 
+<br/>
+
+## Features
+#### 1. [Sign Up (email)](#1-sign-up-email)
+#### 2. [Sign In (email)](#2-sign-in-email)
+#### 3. [Send OOB Code](#3-send-oob-code)
+#### 4. [Refresh ID Token](#4-refresh-id-token)
+#### 5. [Get User Information](#5-get-user-information)
+#### 6. [Update Email and Password](#6-update-email-and-password)
+
+<br/>
+
 ### 1. Sign Up (email)
 
 ```rust
@@ -130,7 +142,7 @@ struct ProviderUserInfo {
 }
 ```
 
-### 6. User Email and Password
+### 6. Update Email and Password
 
 #### Email
 ```rust
