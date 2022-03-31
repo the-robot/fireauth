@@ -37,6 +37,28 @@ impl crate::FireAuth {
         self.update_user(id_token, None, Some(password), return_secure_token).await
     }
 
+    pub async fn verify_email(&self, id_token: String) -> Result<EmailVerification, Error> {
+        let url = format!(
+            "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={}",
+            self.api_key,
+        );
+
+        let client = reqwest::Client::new();
+        let resp = client.post(url)
+            .header("Content-Type", "application/json")
+            .json(&SendEmailVerificationPayload { request_type: "VERIFY_EMAIL".to_owned(), id_token })
+            .send()
+            .await?;
+
+        if resp.status() != 200 {
+            let error = resp.json::<FailResponse>().await?.error;
+            return Err(Error::User(error.message));
+        }
+
+        let body = resp.json::<EmailVerification>().await?;
+        Ok(body)
+    }
+
     async fn update_user(
         &self, id_token: String, email: Option<String>, password: Option<String>, return_secure_token: bool,
     ) -> Result<UpdateUser, Error> {
@@ -133,4 +155,19 @@ pub struct ProviderUserInfo {
     pub federated_id: String,
     pub email: String,
     pub raw_id: String,
+}
+
+// Email Verification
+#[derive(Debug, Serialize)]
+#[serde(rename_all = "camelCase")]
+struct SendEmailVerificationPayload {
+    request_type: String,
+    id_token: String,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct EmailVerification {
+    pub kind: String,
+    pub email: String,
 }

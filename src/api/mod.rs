@@ -2,7 +2,6 @@ mod sign_up;
 mod sign_in;
 mod user;
 mod token;
-mod verification;
 
 pub use sign_in::{Response as SignInResponse};
 pub use sign_up::{Response as SignUpResponse};
