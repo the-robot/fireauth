@@ -20,12 +20,12 @@ let fireauth = fireauth::FireAuth::new(API_KEY);
 <br/>
 
 ## Features
-#### 1. [Sign Up (email)](#1-sign-up-email)
-#### 2. [Sign In (email)](#2-sign-in-email)
-#### 3. [Send OOB Code](#3-send-oob-code)
-#### 4. [Refresh ID Token](#4-refresh-id-token)
-#### 5. [Get User Information](#5-get-user-information)
-#### 6. [Update Email and Password](#6-update-email-and-password)
+1. [Sign Up (email)](#1-sign-up-email)
+2. [Sign In (email)](#2-sign-in-email)
+3. [Send OOB Code](#3-send-oob-code)
+4. [Refresh ID Token](#4-refresh-id-token)
+5. [Get User Information](#5-get-user-information)
+6. [Update Email and Password](#6-update-email-and-password)
 
 <br/>
 
@@ -94,9 +94,9 @@ match fireauth.reset_password(email).await {
 }
 ```
 
-### 4. Refresh Token
+### 4. Refresh ID Token
 ```rust
-match fireauth.refresh_token(refresh_token).await {
+match fireauth.refresh_id_token(refresh_token).await {
     Ok(refresh_token_response) => ...
     Err(error) => ...
 }
