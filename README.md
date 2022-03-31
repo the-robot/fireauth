@@ -12,7 +12,7 @@
 First you need to get a web `API_KEY` from [firebase project settings](https://console.firebase.google.com/project/_/settings/general/).
 
 ```rust
-const API_KEY: String = "s6FqaFcRFd...njhB8cCjN7".to_owned();
+let api_key: String = "s6FqaFcRFd...njhB8cCjN7".to_owned();
 
 let fireauth = fireauth::FireAuth::new(API_KEY);
 ```
