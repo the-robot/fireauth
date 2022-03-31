@@ -12,7 +12,7 @@ impl crate::FireAuth {
         let client = reqwest::Client::new();
         let resp = client.post(&url)
             .header("Content-Type", "application/json")
-            .json(&RequestPayload{
+            .json(&SignInPayload {
                 email,
                 password,
                 return_secure_token
@@ -25,14 +25,14 @@ impl crate::FireAuth {
             return Err(Error::SignIn(error.message));
         }
 
-        let body = resp.json::<Response>().await?
+        let body = resp.json::<Response>().await?;
         Ok(body)
     }
 }
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct RequestPayload {
+struct SignInPayload {
     email: String,
     password: String,
     return_secure_token: bool,

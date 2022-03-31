@@ -10,12 +10,13 @@ pub enum Error {
 
     #[error("{0}")]
     SignIn(String),
+
+    #[error("{0}")]
+    User(String),
 }
 
 impl std::convert::From<reqwest::Error> for Error {
     fn from(err: reqwest::Error) -> Self {
-        match err {
-            _ => Error::API(err.to_string()),
-        }
+        Error::API(err.to_string())
     }
 }
