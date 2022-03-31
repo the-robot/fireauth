@@ -13,6 +13,9 @@ pub enum Error {
 
     #[error("{0}")]
     User(String),
+
+    #[error("{0}")]
+    Token(String),
 }
 
 impl std::convert::From<reqwest::Error> for Error {
