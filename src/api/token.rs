@@ -30,14 +30,12 @@ impl crate::FireAuth {
 }
 
 #[derive(Debug, Serialize)]
-#[serde(rename_all = "camelCase")]
 struct RefreshTokenPayload {
     grant_type: String,
     refresh_token: String,
 }
 
 #[derive(Debug, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct RefreshToken {
     pub access_token: String,
     pub expires_in: String,
