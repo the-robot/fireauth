@@ -27,6 +27,8 @@ let fireauth = fireauth::FireAuth::new(API_KEY);
 5. [Get User Information](#5-get-user-information)
 6. [Update Email and Password](#6-update-email-and-password)
 
+> Don't see what you need? See below for [unsupported features for now](#what-are-not-supported-yet).
+
 <br/>
 
 ### 1. Sign Up (email)
