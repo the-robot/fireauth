@@ -3,6 +3,14 @@ name = "fireauth"
 version = "0.1.0"
 authors = ["khant <contact@khant.dev>"]
 edition = "2021"
+description = "Firebase authentication for rust."
+license-file = "LICENSE"
+homepage = "https://github.com/the-robot/fireauth"
+documentation = "https://github.com/the-robot/fireauth"
+repository = "https://github.com/the-robot/fireauth"
+readme = "README.md"
+keywords = ["jwt", "firebase", "authentication"]
+categories = ["authentication"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
