@@ -19,7 +19,7 @@ First you need to get a web `API_KEY` from [firebase project settings](https://c
 ```rust
 let api_key: String = "s6FqaFcRFd...njhB8cCjN7".to_owned();
 
-let fireauth = fireauth::FireAuth::new(API_KEY);
+let auth = fireauth::FireAuth::new(API_KEY);
 ```
 
 <br/>
@@ -43,7 +43,7 @@ let email = "something@email.com".to_owned();
 let password = "supersecret".to_owned();
 let return_secure_token = true;
 
-match fireauth.sign_up_email(email, password, return_secure_token).await {
+match auth.sign_up_email(email, password, return_secure_token).await {
     Ok(response) => ...,
     Err(error) => ...,
 }
@@ -60,7 +60,7 @@ struct SignUpResponse {
 
 ### 2. Sign In (email)
 ```rust
-match fireauth.sign_in_email(email, password, return_secure_token).await {
+match auth.sign_in_email(email, password, return_secure_token).await {
     Ok(response) => ...,
     Err(error) => ...,
 }
@@ -81,7 +81,7 @@ struct SignInResponse {
 ### 3. Send OOB Code
 #### Send verification email
 ```rust
-match fireauth.verify_email(id_token).await {
+match auth.verify_email(id_token).await {
     Ok(send_oob_code) => ...
     Err(error) => ...
 }
@@ -95,7 +95,7 @@ struct SendOobCode {
 
 #### Send reset password
 ```rust
-match fireauth.reset_password(email).await {
+match auth.reset_password(email).await {
     Ok(send_oob_code) => ...
     Err(error) => ...
 }
@@ -103,7 +103,7 @@ match fireauth.reset_password(email).await {
 
 ### 4. Refresh ID Token
 ```rust
-match fireauth.refresh_id_token(refresh_token).await {
+match auth.refresh_id_token(refresh_token).await {
     Ok(refresh_id_token_response) => ...
     Err(error) => ...
 }
@@ -122,7 +122,7 @@ struct RefreshIdToken {
 
 ### 5. Get User Information
 ```rust
-match fireauth.get_user_info(id_token).await {
+match auth.get_user_info(id_token).await {
     Ok(user) => ...,
     Err(error) => ...,
 }
@@ -153,7 +153,7 @@ struct ProviderUserInfo {
 
 #### Email
 ```rust
-match fireauth.change_email(id_token, email, false).await {
+match auth.change_email(id_token, email, false).await {
     Ok(update_user) => ...
     Err(error) => ...
 }
@@ -181,7 +181,7 @@ struct ProviderUserInfo {
 
 #### Password
 ```rust
-match fireauth.change_password(id_token, password, true).await {
+match auth.change_password(id_token, password, true).await {
     Ok(update_user) => ...
     Err(error) => ...
 }
