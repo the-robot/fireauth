@@ -17,7 +17,7 @@ const API_KEY: String = "s6FqaFcRFd...njhB8cCjN7".to_owned();
 let fireauth = fireauth::FireAuth::new(API_KEY);
 ```
 
-### Sign Up (email)
+### 1. Sign Up (email)
 
 ```rust
 let email = "something@email.com".to_owned();
@@ -39,7 +39,7 @@ struct SignUpResponse {
 }
 ```
 
-### Sign In (email)
+### 2. Sign In (email)
 ```rust
 match fireauth.sign_in_email(email, password, return_secure_token).await {
     Ok(response) => ...,
@@ -59,7 +59,49 @@ struct SignInResponse {
 }
 ```
 
-### Get User Information
+### 3. Send OOB Code
+#### Send verification email
+```rust
+match fireauth.verify_email(id_token).await {
+    Ok(send_oob_code) => ...
+    Err(error) => ...
+}
+
+// response structure
+struct SendOobCode {
+    kind: String,
+    email: String,
+}
+```
+
+#### Send reset password
+```rust
+match fireauth.reset_password(email).await {
+    Ok(send_oob_code) => ...
+    Err(error) => ...
+}
+```
+
+### 4. Refresh Token
+```rust
+match fireauth.refresh_token(refresh_token).await {
+    Ok(refresh_token_response) => ...
+    Err(error) => ...
+}
+
+// response structure
+struct RefreshToken {
+    access_token: String,
+    expires_in: String,
+    token_type: String,
+    refresh_token: String,
+    id_token: String,
+    user_id: String,
+    project_id: String,
+}
+```
+
+### 5. Get User Information
 ```rust
 match fireauth.get_user_info(id_token).await {
     Ok(user) => ...,
@@ -88,7 +130,7 @@ struct ProviderUserInfo {
 }
 ```
 
-### User Email and Password
+### 6. User Email and Password
 
 #### Email
 ```rust
@@ -123,47 +165,5 @@ struct ProviderUserInfo {
 match fireauth.change_password(id_token, password, true).await {
     Ok(update_user) => ...
     Err(error) => ...
-}
-```
-
-### Send OOB Code
-#### Send verification email
-```rust
-match fireauth.verify_email(id_token).await {
-    Ok(send_oob_code) => ...
-    Err(error) => ...
-}
-
-// response structure
-struct SendOobCode {
-    kind: String,
-    email: String,
-}
-```
-
-#### Send reset password
-```rust
-match fireauth.reset_password(email).await {
-    Ok(send_oob_code) => ...
-    Err(error) => ...
-}
-```
-
-### Refresh Token
-```rust
-match fireauth.refresh_token(refresh_token).await {
-    Ok(refresh_token_response) => ...
-    Err(error) => ...
-}
-
-// response structure
-struct RefreshToken {
-    access_token: String,
-    expires_in: String,
-    token_type: String,
-    refresh_token: String,
-    id_token: String,
-    user_id: String,
-    project_id: String,
 }
 ```
