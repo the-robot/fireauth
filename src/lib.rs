@@ -1,6 +1,7 @@
 mod api;
 pub mod error;
 
+#[derive(Debug)]
 pub struct FireAuth {
     pub api_key: String, // web api key
 }
