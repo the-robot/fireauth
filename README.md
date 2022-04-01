@@ -59,12 +59,12 @@ match auth.sign_up_email(email, password, return_secure_token).await {
 }
 
 // response structure
-struct SignUpResponse {
-    id_token: String,
-    email: String,
-    refresh_token: String,
-    expires_in: String,
-    local_id: String,
+pub struct fireauth::api::SignUpResponse {
+    pub id_token: String,
+    pub email: String,
+    pub refresh_token: String,
+    pub expires_in: String,
+    pub local_id: String,
 }
 ```
 
@@ -76,15 +76,15 @@ match auth.sign_in_email(email, password, return_secure_token).await {
 }
 
 // response structure
-struct SignInResponse {
-    kind: String,
-    local_id: String,
-    email: String,
-    display_name: String,
-    id_token: String,
-    registered: bool,
-    refresh_token: Option<String>,
-    expires_in: Option<String>,
+pub struct fireauth::api::SignInResponse {
+    pub kind: String,
+    pub local_id: String,
+    pub email: String,
+    pub display_name: String,
+    pub id_token: String,
+    pub registered: bool,
+    pub refresh_token: Option<String>,
+    pub expires_in: Option<String>,
 }
 ```
 
@@ -97,9 +97,9 @@ match auth.verify_email(id_token).await {
 }
 
 // response structure
-struct SendOobCode {
-    kind: String,
-    email: String,
+pub struct fireauth::api::SendOobCode {
+    pub kind: String,
+    pub email: String,
 }
 ```
 
@@ -119,14 +119,14 @@ match auth.refresh_id_token(refresh_token).await {
 }
 
 // response structure
-struct RefreshIdToken {
-    access_token: String,
-    expires_in: String,
-    token_type: String,
-    refresh_token: String,
-    id_token: String,
-    user_id: String,
-    project_id: String,
+pub struct fireauth::api::RefreshIdToken {
+    pub access_token: String,
+    pub expires_in: String,
+    pub token_type: String,
+    pub refresh_token: String,
+    pub id_token: String,
+    pub user_id: String,
+    pub project_id: String,
 }
 ```
 
@@ -138,24 +138,24 @@ match auth.get_user_info(id_token).await {
 }
 
 // response structure
-struct User {
-    local_id: String,
-    email: String,
-    password_hash: String,
-    email_verified: bool,
-    password_updated_at: u64,
-    provider_user_info: Vec<ProviderUserInfo>,
-    valid_since: String,
-    last_login_at: String,
-    created_at: String,
-    last_refresh_at: String,
+pub struct fireauth::api::User {
+    pub local_id: String,
+    pub email: String,
+    pub password_hash: String,
+    pub email_verified: bool,
+    pub password_updated_at: u64,
+    pub provider_user_info: Vec<ProviderUserInfo>,
+    pub valid_since: String,
+    pub last_login_at: String,
+    pub created_at: String,
+    pub last_refresh_at: String,
 }
 
-struct ProviderUserInfo {
-    provider_id: String,
-    federated_id: String,
-    email: String,
-    raw_id: String,
+pub struct fireauth::api::ProviderUserInfo {
+    pub provider_id: String,
+    pub federated_id: String,
+    pub email: String,
+    pub raw_id: String,
 }
 ```
 
@@ -163,35 +163,35 @@ struct ProviderUserInfo {
 
 #### Email
 ```rust
-match auth.change_email(id_token, email, false).await {
+match auth.change_email(id_token, email, return_secure_token).await {
     Ok(update_user) => ...
     Err(error) => ...
 }
 
 // response structure
-struct UpdateUser {
-    kind: String,
-    local_id: String,
-    email: String,
-    provider_user_info: Vec<ProviderUserInfo>,
-    password_hash: String,
-    email_verified: bool,
-    id_token: Option<String>,
-    refresh_token: Option<String>,
-    expires_in: Option<String>,
+pub struct fireauth::api::UpdateUser {
+    pub kind: String,
+    pub local_id: String,
+    pub email: String,
+    pub provider_user_info: Vec<ProviderUserInfo>,
+    pub password_hash: String,
+    pub email_verified: bool,
+    pub id_token: Option<String>,
+    pub refresh_token: Option<String>,
+    pub expires_in: Option<String>,
 }
 
-struct ProviderUserInfo {
-    provider_id: String,
-    federated_id: String,
-    email: String,
-    raw_id: String,
+pub struct fireauth::api::ProviderUserInfo {
+    pub provider_id: String,
+    pub federated_id: String,
+    pub email: String,
+    pub raw_id: String,
 }
 ```
 
 #### Password
 ```rust
-match auth.change_password(id_token, password, true).await {
+match auth.change_password(id_token, password, return_secure_token).await {
     Ok(update_user) => ...
     Err(error) => ...
 }
