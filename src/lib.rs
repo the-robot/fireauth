@@ -1,5 +1,7 @@
 pub mod api;
-pub mod error;
+mod error;
+
+pub use error::Error;
 
 #[derive(Debug)]
 pub struct FireAuth {
