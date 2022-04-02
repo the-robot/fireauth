@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::FailResponse;
 
 impl crate::FireAuth {
-    pub async fn sign_up_email(&self, email: String, password: String, return_secure_token: bool) -> Result<Response, Error> {
+    pub async fn sign_up_email(&self, email: &str, password: &str, return_secure_token: bool) -> Result<Response, Error> {
         let url = format!(
             "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={}",
             self.api_key,
@@ -31,9 +31,9 @@ impl crate::FireAuth {
 
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct SignUpPayload {
-    email: String,
-    password: String,
+struct SignUpPayload<'a> {
+    email: &'a str,
+    password: &'a str,
     return_secure_token: bool,
 }
 

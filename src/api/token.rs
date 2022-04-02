@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::FailResponse;
 
 impl crate::FireAuth {
-    pub async fn refresh_id_token(&self, refresh_token: String) -> Result<RefreshIdToken, Error> {
+    pub async fn refresh_id_token(&self, refresh_token: &str) -> Result<RefreshIdToken, Error> {
         let url = format!(
             "https://securetoken.googleapis.com/v1/token?key={}",
             self.api_key,
@@ -13,7 +13,7 @@ impl crate::FireAuth {
         let resp = client.post(url)
             .header("Content-Type", "application/json")
             .json(&RefreshIdTokenPayload {
-                grant_type: "refresh_token".to_owned(),
+                grant_type: "refresh_token",
                 refresh_token,
             })
             .send()
@@ -30,9 +30,9 @@ impl crate::FireAuth {
 }
 
 #[derive(Debug, Serialize)]
-struct RefreshIdTokenPayload {
-    grant_type: String,
-    refresh_token: String,
+struct RefreshIdTokenPayload<'a> {
+    grant_type: &'a str,
+    refresh_token: &'a str,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

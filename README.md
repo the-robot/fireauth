@@ -8,7 +8,7 @@
 <p align="center"><i>Rust wrapper for Firebase Authentication REST API</i></p>
 <p align="center">
     <a href="https://crates.io/crates/fireauth/">
-        <img src="https://img.shields.io/badge/crates.io-v0.1.3-green.svg" alt="WTFPL" />
+        <img src="https://img.shields.io/badge/crates.io-v0.1.4-green.svg" alt="WTFPL" />
     </a>
     <a href="http://www.wtfpl.net/">
         <img src="http://www.wtfpl.net/wp-content/uploads/2012/12/wtfpl-badge-4.png" width="85" height="20" alt="WTFPL" />
@@ -19,7 +19,7 @@
 Add the following to Cargo.toml:
 
 ```toml
-fireauth = "0.1.3"
+fireauth = "0.1.4"
 ```
 
 ## How to use
@@ -27,7 +27,7 @@ fireauth = "0.1.3"
 First you need to get a web `API_KEY` from [firebase project settings](https://console.firebase.google.com/project/_/settings/general/).
 
 ```rust
-let api_key: String = "s6FqaFcRFd...njhB8cCjN7".to_owned();
+let api_key: String = String::from("s6FqaFcRFd...njhB8cCjN7");
 
 let auth = fireauth::FireAuth::new(API_KEY);
 ```
@@ -49,8 +49,8 @@ let auth = fireauth::FireAuth::new(API_KEY);
 ### 1. Sign Up (email)
 
 ```rust
-let email = "something@email.com".to_owned();
-let password = "supersecret".to_owned();
+let email = "something@email.com";
+let password = "supersecret";
 let return_secure_token = true;
 
 match auth.sign_up_email(email, password, return_secure_token).await {

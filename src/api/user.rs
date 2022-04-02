@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 use super::FailResponse;
 
 impl crate::FireAuth {
-    pub async fn get_user_info(&self, id_token: String) -> Result<User, Error> {
+    pub async fn get_user_info(&self, id_token: &str) -> Result<User, Error> {
         let url = format!(
             "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key={}",
             self.api_key,
@@ -26,27 +26,27 @@ impl crate::FireAuth {
     }
 
     pub async fn change_email(
-        &self, id_token: String, email: String, return_secure_token: bool,
+        &self, id_token: &String, email: &str, return_secure_token: bool,
     ) -> Result<UpdateUser, Error> {
         self.update_user(id_token, Some(email), None, return_secure_token).await
     }
 
     pub async fn change_password(
-        &self, id_token: String, password: String, return_secure_token: bool,
+        &self, id_token: &String, password: &str, return_secure_token: bool,
     ) -> Result<UpdateUser, Error> {
         self.update_user(id_token, None, Some(password), return_secure_token).await
     }
 
-    pub async fn reset_password(&self, email: String) -> Result<SendOobCode, Error> {
-        self.send_oob_code("PASSWORD_RESET".to_owned(), None, Some(email)).await
+    pub async fn reset_password(&self, email: &str) -> Result<SendOobCode, Error> {
+        self.send_oob_code("PASSWORD_RESET", None, Some(email)).await
     }
 
-    pub async fn verify_email(&self, id_token: String) -> Result<SendOobCode, Error> {
-        self.send_oob_code("VERIFY_EMAIL".to_owned(), Some(id_token), None).await
+    pub async fn verify_email(&self, id_token: &str) -> Result<SendOobCode, Error> {
+        self.send_oob_code("VERIFY_EMAIL", Some(id_token), None).await
     }
 
     async fn update_user(
-        &self, id_token: String, email: Option<String>, password: Option<String>, return_secure_token: bool,
+        &self, id_token: &str, email: Option<&str>, password: Option<&str>, return_secure_token: bool,
     ) -> Result<UpdateUser, Error> {
         let url = format!(
             "https://identitytoolkit.googleapis.com/v1/accounts:update?key={}",
@@ -74,7 +74,7 @@ impl crate::FireAuth {
         Ok(body)
     }
 
-    async fn send_oob_code(&self, request_type: String, id_token: Option<String>, email: Option<String>) -> Result<SendOobCode, Error> {
+    async fn send_oob_code(&self, request_type: &str, id_token: Option<&str>, email: Option<&str>) -> Result<SendOobCode, Error> {
         let url = format!(
             "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key={}",
             self.api_key,
@@ -100,8 +100,8 @@ impl crate::FireAuth {
 // User Info
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct UserInfoPayload {
-    id_token: String,
+struct UserInfoPayload<'a> {
+    id_token: &'a str,
 }
 
 #[derive(Debug, Deserialize)]
@@ -129,14 +129,14 @@ pub struct User {
 // Change Email/Password
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct UpdateUserPayload {
-    id_token: String,
+struct UpdateUserPayload<'a> {
+    id_token: &'a str,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    email: Option<String>,
+    email: Option<&'a str>,
 
     #[serde(skip_serializing_if = "Option::is_none")]
-    password: Option<String>,
+    password: Option<&'a str>,
 
     return_secure_token: bool,
 }
@@ -168,10 +168,10 @@ pub struct ProviderUserInfo {
 // Email Verification
 #[derive(Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
-struct SendOobCodePayload {
-    request_type: String,
-    id_token: Option<String>,
-    email: Option<String>,
+struct SendOobCodePayload<'a> {
+    request_type: &'a str,
+    id_token: Option<&'a str>,
+    email: Option<&'a str>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
