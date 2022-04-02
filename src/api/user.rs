@@ -26,13 +26,13 @@ impl crate::FireAuth {
     }
 
     pub async fn change_email(
-        &self, id_token: &String, email: &str, return_secure_token: bool,
+        &self, id_token: &str, email: &str, return_secure_token: bool,
     ) -> Result<UpdateUser, Error> {
         self.update_user(id_token, Some(email), None, return_secure_token).await
     }
 
     pub async fn change_password(
-        &self, id_token: &String, password: &str, return_secure_token: bool,
+        &self, id_token: &str, password: &str, return_secure_token: bool,
     ) -> Result<UpdateUser, Error> {
         self.update_user(id_token, None, Some(password), return_secure_token).await
     }
