@@ -35,7 +35,7 @@ struct RefreshIdTokenPayload {
     refresh_token: String,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct RefreshIdToken {
     pub access_token: String,
     pub expires_in: String,

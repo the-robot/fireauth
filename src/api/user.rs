@@ -111,7 +111,7 @@ struct UserInfoResponse {
     users: Vec<User>
 }
 
-#[derive(Clone, Debug, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct User {
     pub local_id: String,
@@ -141,7 +141,7 @@ struct UpdateUserPayload {
     return_secure_token: bool,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct UpdateUser {
     pub kind: String,
@@ -156,7 +156,7 @@ pub struct UpdateUser {
 }
 
 // Provider User Info
-#[derive(Clone, Debug, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct ProviderUserInfo {
     pub provider_id: String,
@@ -174,7 +174,7 @@ struct SendOobCodePayload {
     email: Option<String>,
 }
 
-#[derive(Debug, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SendOobCode {
     pub kind: String,
