@@ -3,7 +3,7 @@ mod error;
 
 pub use error::Error;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct FireAuth {
     pub api_key: String, // web api key
 }
