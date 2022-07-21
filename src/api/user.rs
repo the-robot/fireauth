@@ -120,7 +120,7 @@ pub struct User {
     pub display_name: String,
     pub provider_user_info: Vec<ProviderUserInfo>,
     pub photo_url: String,
-    pub password_hash: String,
+    pub password_hash: Option<String>,
     pub password_updated_at: u64,
     pub valid_since: String,
     pub disabled: bool,
