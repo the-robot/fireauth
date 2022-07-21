@@ -121,13 +121,11 @@ pub struct User {
     pub provider_user_info: Vec<ProviderUserInfo>,
     pub photo_url: String,
     pub password_hash: Option<String>,
-    pub password_updated_at: u64,
+    pub password_updated_at: Option<u64>,
     pub valid_since: String,
-    pub disabled: bool,
+    pub disabled: Option<bool>,
     pub last_login_at: String,
     pub created_at: String,
-    pub custom_auth: bool,
-    pub tenant_id: String,
 }
 
 // Change Email/Password
