@@ -116,14 +116,18 @@ struct UserInfoResponse {
 pub struct User {
     pub local_id: String,
     pub email: String,
-    pub password_hash: String,
     pub email_verified: bool,
-    pub password_updated_at: u64,
+    pub display_name: String,
     pub provider_user_info: Vec<ProviderUserInfo>,
+    pub photo_url: String,
+    pub password_hash: String,
+    pub password_updated_at: u64,
     pub valid_since: String,
+    pub disabled: bool,
     pub last_login_at: String,
     pub created_at: String,
-    pub last_refresh_at: String,
+    pub custom_auth: bool,
+    pub tenant_id: String,
 }
 
 // Change Email/Password
