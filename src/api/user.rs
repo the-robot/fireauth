@@ -160,8 +160,8 @@ pub struct UpdateUser {
 #[serde(rename_all = "camelCase")]
 pub struct ProviderUserInfo {
     pub provider_id: String,
-    pub federated_id: String,
-    pub email: String,
+    pub federated_id: Option<String>,
+    pub email: Option<String>,
     pub raw_id: String,
 }
 
