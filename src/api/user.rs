@@ -115,8 +115,8 @@ struct UserInfoResponse {
 #[serde(rename_all = "camelCase")]
 pub struct User {
     pub local_id: String,
-    pub email: String,
-    pub email_verified: bool,
+    pub email: Option<String>,
+    pub email_verified: Option<bool>,
     pub display_name: String,
     pub provider_user_info: Vec<ProviderUserInfo>,
     pub photo_url: String,
@@ -163,7 +163,7 @@ pub struct UpdateUser {
 pub struct ProviderUserInfo {
     pub provider_id: String,
     pub federated_id: String,
-    pub email: String,
+    pub email: Option<String>,
     pub raw_id: String,
 }
 
